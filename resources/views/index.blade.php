@@ -7,7 +7,7 @@
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
 
-        <!-- Styles -->
+        <!-- Baked in Laravel Styles -->
         <style>
             html, body {
                 background-color: #fff;
@@ -58,6 +58,7 @@
                 <div class='title m-b-md'>
                 Calculator
               </div>
+            <!-- Display last input calculation -->
             @if(Session::get('flash_message'))
             <h3>
               {{ Session::get('flash_message')}}
@@ -72,12 +73,11 @@
                     {{$calculation->first}} / {{$calculation->second}}= {{$calculation->first / $calculation->second}}
                   @endif
               @endforeach
-            
             </h3>
             @endif
             </div>
             <!-- Calculator Form -->
-                <form action='/' method='POST'>
+                <form action='/' method='POST' class='content'>
                 @csrf
                     <label for='first'>Integer 1:</label>
                     <input type='integer' id='first' name='first' required></br>
@@ -94,7 +94,7 @@
                     <button type='submit'>Calculate</button>
                 </form>
                 </br>
-
+                <h2>10 most recent calculations</h2>
                 @foreach($calculations as $calculation)
                   <div>
                       @if($calculation->type == 'add') 
