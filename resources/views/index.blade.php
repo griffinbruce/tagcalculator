@@ -14,15 +14,12 @@
                 color: #636b6f;
                 font-family: 'Nunito', sans-serif;
                 font-weight: 600;
-                height: 100vh;
+                height: 90vh;
                 margin: 0;
             }
+            
             body{
                 padding: 25px;
-            }
-
-            .full-height {
-                height: 50vh;
             }
 
             .flex-center {
@@ -95,6 +92,7 @@
                 </form>
                 </br>
                 <h2>10 most recent calculations</h2>
+                <!-- loop over all rows and calculate -->
                 @foreach($calculations as $calculation)
                   <div>
                       @if($calculation->type == 'add') 
