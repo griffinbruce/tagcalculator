@@ -48,6 +48,9 @@
             .m-b-md {
                 margin-bottom: 30px;
             }
+            .text-monospace{
+                font-family: monospace;
+            }
         </style>
     </head>
     <body>
@@ -58,18 +61,7 @@
             <!-- Display last input calculation -->
             @if(Session::get('flash_message'))
             <h3>
-              {{ Session::get('flash_message')}}
-              @foreach($currentCalc as $calculation)
-                @if($calculation->type == 'add') 
-                    {{$calculation->first}} + {{$calculation->second}} = {{$calculation->first + $calculation->second}}
-                    @elseif($calculation->type == 'subtract')
-                    {{$calculation->first}} - {{$calculation->second}}= {{$calculation->first - $calculation->second}}
-                    @elseif($calculation->type == 'multiply')
-                    {{$calculation->first}} * {{$calculation->second}}= {{$calculation->first * $calculation->second}}
-                    @elseif($calculation->type == 'divide')
-                    {{$calculation->first}} / {{$calculation->second}}= {{$calculation->first / $calculation->second}}
-                  @endif
-              @endforeach
+              {{ Session::get('flash_message') }}
             </h3>
             @endif
             </div>
@@ -78,35 +70,30 @@
                 @csrf
                     <label for='first'>Integer 1:</label>
                     <input type='integer' id='first' name='first' required></br>
-                    <label for='second'>Integer 2:</label>
-                    <input type='integer' id='second' name='second' required></br>
                     <label for='type'>Choose Operand:</label>
                         <select name='type' id='type' required>
-                            <option value='add'>+</option>
-                            <option value='subtract'>-</option>
-                            <option value='multiply'>*</option>
-                            <option value='divide'>/</option>
+                            <option value='+'>+</option>
+                            <option value='-'>-</option>
+                            <option value='*'>*</option>
+                            <option value='/'>/</option>
                         </select>
+                        </br>
+                    <label for='second'>Integer 2:</label>
+                    <input type='integer' id='second' name='second' required>
+                    
                         </br>          
                     <button type='submit'>Calculate</button>
                 </form>
                 </br>
-                <h2>10 most recent calculations</h2>
-                <!-- loop over all rows and calculate -->
-                @foreach($calculations as $calculation)
-                  <div>
-                      @if($calculation->type == 'add') 
-                      {{$calculation->id}}: {{$calculation->first}} + {{$calculation->second}} = {{$calculation->first + $calculation->second}}
-                      @elseif($calculation->type == 'subtract')
-                      {{$calculation->id}}: {{$calculation->first}} - {{$calculation->second}}= {{$calculation->first - $calculation->second}}
-                      @elseif($calculation->type == 'multiply')
-                      {{$calculation->id}}: {{$calculation->first}} * {{$calculation->second}}= {{$calculation->first * $calculation->second}}
-                      @elseif($calculation->type == 'divide')
-                      {{$calculation->id}}: {{$calculation->first}} / {{$calculation->second}}= {{$calculation->first / $calculation->second}}
-                      @endif
-                  </div>
-                @endforeach
-
+                <div class="content">
+                    <h2>10 most recent calculations</h2>
+                    <!-- loop over all rows and calculate -->
+                    @foreach($calculations as $calculation)
+                    <div>
+                        {{ $calculation->id }}: <span class="text-monospace">{{ $calculation->fullResult() }} </span>
+                    </div>
+                    @endforeach
+                </div>
             </div>
         </div>
     </body>

@@ -20,7 +20,7 @@ class CalculationController extends Controller
         ]);
     }
 
-    public function store() {
+    public function getResult() {
 
         //store input in DB
         $calculation = new Calculation();
@@ -29,8 +29,10 @@ class CalculationController extends Controller
         $calculation->second = request('second');
         $calculation->type = request('type');
 
+        $calculation->result = $calculation->calculate();
+
         $calculation->save();
 
-        return redirect('/')->with('flash_message', 'The answer is: ');
+        return redirect('/')->with('flash_message', "The answer is: $calculation->result");
     }
 };

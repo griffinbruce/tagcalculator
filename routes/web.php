@@ -19,4 +19,4 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CalculationController;
 
 Route::get('/', [CalculationController::class, 'index']);
-Route::post('/', [CalculationController::class, 'store']);
+Route::post('/', [CalculationController::class, 'getResult']);
