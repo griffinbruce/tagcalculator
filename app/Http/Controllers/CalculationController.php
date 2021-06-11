@@ -25,14 +25,21 @@ class CalculationController extends Controller
         //store input in DB
         $calculation = new Calculation();
 
+        //Check for correct integer inputs
+        if(preg_match("/^[0-9]+$/", request('first')) && preg_match("/^[0-9]+$/", request('second'))){
+
         $calculation->first = request('first');
         $calculation->second = request('second');
         $calculation->type = request('type');
-
+        
         $calculation->result = $calculation->calculate();
 
         $calculation->save();
 
         return redirect('/')->with('flash_message', "The answer is: $calculation->result");
+        }else{
+
+        return redirect('/')->with('flash_message', "Please enter numbers only");
+        }
     }
 };
