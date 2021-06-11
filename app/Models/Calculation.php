@@ -29,7 +29,8 @@ class Calculation extends Model
         return $output;
     }
 
-    public function fullResult() {
-        return "$this->first $this->type $this->second = $this->result";
-    }
+    //No longer needed when using a table for data
+    // public function fullResult() {
+    //     return "$this->first $this->type $this->second = $this->result";
+    // }
 }

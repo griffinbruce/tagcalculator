@@ -51,6 +51,16 @@
             .text-monospace{
                 font-family: monospace;
             }
+            table, th, td{
+                border: 1px solid black;
+                border-collapse: collapse;
+            }
+            th, td{
+                padding: 5px;
+            }
+            th{
+                text-align: left;
+            }
         </style>
     </head>
     <body>
@@ -70,8 +80,9 @@
                 @csrf
                     <label for='first'>Integer 1:</label>
                     <input type='integer' id='first' name='first' required></br>
-                    <label for='type'>Choose Operand:</label>
+                    
                         <select name='type' id='type' required>
+                            <option value="">Choose Operand:</option>
                             <option value='+'>+</option>
                             <option value='-'>-</option>
                             <option value='*'>*</option>
@@ -85,14 +96,26 @@
                     <button type='submit'>Calculate</button>
                 </form>
                 </br>
-                <div class="content">
-                    <h2>10 most recent calculations</h2>
-                    <!-- loop over all rows and calculate -->
-                    @foreach($calculations as $calculation)
-                    <div>
-                        {{ $calculation->id }}: <span class="text-monospace">{{ $calculation->fullResult() }} </span>
-                    </div>
-                    @endforeach
+                <div class="flex-center">
+                    <table>
+                        <tr>
+                            <th>Calculation </br>Number</th>
+                            <th>First Input</th>
+                            <th>Operand</th>
+                            <th>Second Input</th>
+                            <th>Result</th>
+                        </tr>
+                        <!-- loop over all rows and calculate -->
+                        @foreach($calculations as $calculation)
+                        <tr>
+                            <td>{{ $calculation->id }}</td>
+                            <td>{{ $calculation->first }}</td>
+                            <td>{{ $calculation->type }}</td>
+                            <td>{{ $calculation->second }}</td>
+                            <td>{{ $calculation->result }}</td>
+                        </tr>
+                        @endforeach
+                    </table>
                 </div>
             </div>
         </div>
