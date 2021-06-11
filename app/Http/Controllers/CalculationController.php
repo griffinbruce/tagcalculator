@@ -27,19 +27,21 @@ class CalculationController extends Controller
 
         //Check for correct integer inputs
         if(preg_match("/^[0-9]+$/", request('first')) && preg_match("/^[0-9]+$/", request('second'))){
+            //check for dividing by 0
+            if(request('second') == 0){
+                return redirect('/')->with('flash_message', "When Choosing to Divide the second integer must not be 0");
+            }
+            $calculation->first = request('first');
+            $calculation->second = request('second');
+            $calculation->type = request('type');
+            
+            $calculation->result = $calculation->calculate();
 
-        $calculation->first = request('first');
-        $calculation->second = request('second');
-        $calculation->type = request('type');
-        
-        $calculation->result = $calculation->calculate();
+            $calculation->save();
 
-        $calculation->save();
-
-        return redirect('/')->with('flash_message', "The answer is: $calculation->result");
+            return redirect('/')->with('flash_message', "The answer is: $calculation->result");
         }else{
-
-        return redirect('/')->with('flash_message', "Please enter numbers only");
+            return redirect('/')->with('flash_message', "Please enter numbers only");
         }
     }
 };
