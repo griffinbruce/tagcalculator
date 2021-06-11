@@ -28,7 +28,7 @@ class CalculationController extends Controller
         //Check for correct integer inputs
         if(preg_match("/^[0-9]+$/", request('first')) && preg_match("/^[0-9]+$/", request('second'))){
             //check for dividing by 0
-            if(request('second') == 0){
+            if(request('type') == '/' && request('second') == 0){
                 return redirect('/')->with('flash_message', "When Choosing to Divide the second integer must not be 0");
             }
             $calculation->first = request('first');
